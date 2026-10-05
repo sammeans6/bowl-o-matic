@@ -1,6 +1,6 @@
 // Network-first service worker: always tries for the latest version, falls
 // back to the cached copy when offline (e.g. at a party with bad Wi-Fi).
-const CACHE = 'bowlomatic-v15';
+const CACHE = 'bowlomatic-v16';
 // The app itself is app.bin (encrypted); lock.js opens it with the owner's code.
 const SHELL = ['./', 'index.html', 'lock.js', 'app.bin', 'manifest.webmanifest', 'icons/icon-180.png'];
 // 18+ clips (clips/*.bin, encrypted). Their names change whenever a clip changes,
