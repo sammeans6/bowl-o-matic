@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Only this site's own code may run (blob: is the app, decrypted in memory
+       by lock.js). Fonts from Google only. Camera frames, scores and saved
+       videos never leave the phone (no network calls). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>Bowl-O-Matic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Bowl-O-Matic">
+  <meta name="theme-color" content="#06104a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    #lock { position: fixed; inset: 0; z-index: 1000; background: #06104a; color: #ffd400;
+      font-family: 'Press Start 2P', monospace; display: flex; flex-wrap: wrap; align-items: center; align-content: center;
+      justify-content: center; gap: 4vmin 8vmin; padding: max(12px, env(safe-area-inset-top)) 16px 12px;
+      -webkit-user-select: none; user-select: none; touch-action: manipulation; }
+    #lock .side { display: flex; flex-direction: column; align-items: center; gap: 4vmin; text-align: center; }
+    #lock h1 { margin: 0; font-size: clamp(16px, 5vmin, 30px); color: #ff3b8d; text-shadow: 3px 3px 0 #000; }
+    #lock .dots { display: flex; gap: 3vmin; }
+    #lock .dots i { width: 5vmin; height: 5vmin; min-width: 18px; min-height: 18px; border: 3px solid #ffd400; border-radius: 50%; }
+    #lock .dots i.on { background: #ffd400; }
+    #lock .msg { font-size: clamp(10px, 3vmin, 16px); color: #8ff; min-height: 1.2em; }
+    #lock .msg.bad { color: #ff5a5a; }
+    #lock .pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vmin; visibility: hidden; }
+    #lock.ready .pad { visibility: visible; }
+    #lock .pad button { width: clamp(56px, 17vmin, 96px); height: clamp(50px, 17vmin, 96px); font: inherit;
+      font-size: clamp(18px, 6vmin, 32px); color: #06104a; background: #ffd400; border: 0; border-radius: 14px;
+      box-shadow: 0 5px 0 #a07800; }
+    #lock .pad button:active { transform: translateY(4px); box-shadow: 0 1px 0 #a07800; }
+    #lock .pad .back { background: #ff3b8d; box-shadow: 0 5px 0 #8a1a4a; color: #fff; }
+    #lock.shake .dots { animation: shake .4s; }
+    @keyframes shake { 25% { transform: translateX(-12px); } 75% { transform: translateX(12px); } }
+  </style>
+</head>
+<body>
+  <div id="lock">
+    <div class="side">
+      <h1>BOWL-O-MATIC</h1>
+      <div class="dots"></div>
+      <div class="msg">LOADING…</div>
+    </div>
+    <div class="pad">
+      <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+      <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+      <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+      <span></span><button data-k="0">0</button><button data-k="back" class="back" aria-label="Delete">⌫</button>
+    </div>
+  </div>
+  <div id="rotate"><div>↻<br>TURN YOUR PHONE<br>SIDEWAYS</div></div>
+  <main id="screen"></main>
+  <div id="modal"></div>
+  <div id="camMonitor"><canvas width="192" height="108"></canvas><div class="cap"></div></div>
+  <canvas id="fx"></canvas>
+  <div id="clipLayer"><video id="clip" playsinline webkit-playsinline preload="auto"></video></div>
+  <div id="toast"></div>
+  <div id="mediaHolder" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <script type="module" src="lock.js"></script>
+</body>
+</html>

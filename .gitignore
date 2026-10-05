@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+# Readable source. Only the encrypted app.bin is committed (see AGENTS.md).
+js/
+css/
+test/
+docs/
+# Readable animation clips. Only the encrypted clips/*.bin are committed.
+clips-src/

@@ -1,0 +1,15 @@
+{
+  "name": "Bowl-O-Matic",
+  "short_name": "Bowl-O-Matic",
+  "description": "Tabletop bowling scoreboard with camera pin detection",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#06104a",
+  "theme_color": "#06104a",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
